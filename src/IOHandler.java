@@ -1,5 +1,10 @@
+import java.util.Scanner;
+
 // Handles the terminal input / output data.
 class IOHandler {
+
+    // Private scanner for user inputing.
+    private static final Scanner sc = new Scanner(System.in);
 
     // String placeholder used to generate the the left gap when printing to stdout.
     private static final String gapPlaceholder = " ";
@@ -38,6 +43,21 @@ class IOHandler {
                 String.format("setLeftGap function expects a zero/positive integer, not %d", value)
             );
         leftGap = value;
+    }
+
+    // Prompt a question to the user with the `p` prefix. This function prints the left gap if
+    // necessary and returns the final String.
+    protected static String prompt(String p) {
+        System.out.print(getLeftGapString() + p);
+        printGap = true;
+        return sc.nextLine();
+    }
+
+    // Prompt a question to the user without any prefix. This function doesn't prints the left gap
+    // and returns the final String.
+    protected static String prompt() {
+        printGap = true;
+        return sc.nextLine();
     }
 
     // Returns the left gap as String. Better than using private attributes since it actually
