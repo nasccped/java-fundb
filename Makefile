@@ -1,7 +1,7 @@
 CC=javac
 RC=java
 SRC=./src
-PKGS=$(SRC)
+PKGS=$(SRC) $(SRC)/repl
 FILES=$(foreach pkg,$(PKGS),$(wildcard $(pkg)/*.java))
 DEST=./target
 MAIN=Main
