@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.List;
 import repl.Reader;
+import repl.Evaluator;
 
 class Main {
 
@@ -41,8 +43,11 @@ class Main {
                 Reader.pushToBuffer(userResponse);
             }
 
-            // consumes the reader buffer and compare.
-            if (Reader.consume().equalsIgnoreCase("exit;"))
+            // Convert input into list of tokens.
+            List<String> tokens = Evaluator.getTokensFromString(Reader.consume());
+
+            // if exiting required.
+            if (tokens.get(0).equalsIgnoreCase("exit"))
                 setContinueProgram(false);
         }
 
