@@ -60,6 +60,12 @@ class IOHandler {
         return sc.nextLine();
     }
 
+    // Only prints the left side gap spacing + turn off next gap (since it's in the same line).
+    protected static void printGapOnly() {
+        print(getLeftGapString());
+        printGap = false;
+    }
+
     // Returns the left gap as String. Better than using private attributes since it actually
     // calculates the string length.
     private static String getLeftGapString() {
