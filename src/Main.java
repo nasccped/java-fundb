@@ -1,5 +1,9 @@
 class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, db!");
+        IOHandler.setLeftGap(2);
+        IOHandler.println("Hi there...");
+        IOHandler.print("How ");
+        IOHandler.print("you ");
+        IOHandler.println("doing?");
     }
 }
