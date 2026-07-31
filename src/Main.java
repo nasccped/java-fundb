@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import repl.Reader;
 
 class Main {
 
@@ -12,7 +13,7 @@ class Main {
     private static boolean continueProgram = true;
 
     public static void main(String[] args) {
-        String boldQuit = String.format("\u001b[1m%s\u001b[0m", "quit;");
+        String boldExit = String.format("\u001b[1m%s\u001b[0m", "exit;");
         String boldHelp = String.format("\u001b[1m%s\u001b[0m", "help;");
 
         // Print welcome message.
@@ -21,19 +22,28 @@ class Main {
         IOHandler.println("Welcome to java-fundb, a database REPL made on my free time!");
         IOHandler.println(String.format(
             "You can use '%s' or '%s' at any time. Have fun!\n",
-            boldQuit,
+            boldExit,
             boldHelp
         ));
 
         // while program run.
         while (continueProgram) {
 
+            // Take input and push to factory buffer.
             userResponse = IOHandler.prompt(PROMPT_INDICATOR);
+            Reader.pushToBuffer(userResponse);
 
-            if (userResponse.equalsIgnoreCase("quit;"))
+            // while input not done.
+            while (!Reader.inputIsDone()) {
+                // take remaining on next line.
+                IOHandler.printGapOnly();
+                userResponse = IOHandler.prompt();
+                Reader.pushToBuffer(userResponse);
+            }
+
+            // consumes the reader buffer and compare.
+            if (Reader.consume().equalsIgnoreCase("exit;"))
                 setContinueProgram(false);
-            else if (userResponse.equalsIgnoreCase("help;"))
-                IOHandler.println("TODO: print help panel here...");
         }
 
         // Say bye...
