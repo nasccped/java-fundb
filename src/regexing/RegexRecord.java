@@ -1,4 +1,4 @@
-package regexing;
+package fundb.regexing;
 
 // A record for group data carrying. Instead of returning a lot of regex stuff, just hold that
 // data.

@@ -1,4 +1,4 @@
-package regexing;
+package fundb.regexing;
 
 // Interface for regex group name unwrapping. Used across database and token packages.
 public interface GetRegexGroupInterface {
