@@ -39,12 +39,17 @@ public class IOHandler {
 
     // Set a new value to the inner left gap field. This function can throw an
     // `InvalidArgumentException` if passed value is negative.
-    protected static void setLeftGap(int value) {
+    public static void setLeftGap(int value) {
         if (value < 0)
             throw new IllegalArgumentException(
                 String.format("setLeftGap function expects a zero/positive integer, not %d", value)
             );
         leftGap = value;
+    }
+
+    // Returns the `leftGap` inner value.
+    public static int getLeftGap() {
+        return leftGap;
     }
 
     // Prompt a question to the user with the `p` prefix. This function prints the left gap if
