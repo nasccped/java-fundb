@@ -1,10 +1,10 @@
 CC=javac
 RC=java
 SRC=./src
-PKGS=$(SRC) $(SRC)/repl
+PKGS=$(SRC) $(SRC)/repl $(SRC)/database/command $(SRC)/regexing $(SRC)/token
 FILES=$(foreach pkg,$(PKGS),$(wildcard $(pkg)/*.java))
 DEST=./target
-MAIN=Main
+MAIN=fundb/Main
 
 build: $(FILES)
 	$(CC) $^ -d $(DEST)
