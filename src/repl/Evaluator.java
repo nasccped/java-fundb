@@ -1,52 +1,48 @@
-package repl;
+package fundb.repl;
 
 import java.util.List;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import fundb.token.TokenInterface;
+import fundb.token.TokenFactory;
+import fundb.token.UndefinedTokenException;
 
 // This class is responsible for converting String input into a Token list.
 public class Evaluator {
 
-    // Mapping used between group names and regex patterns.
-    private static final Map<String, String[]> regexGroupMapping = Map.ofEntries(
-        Map.entry("cmd", new String[]{"exit", "help"}),
-        Map.entry("semicolon", new String[]{"\\;"})
+    // Regex pattern used to match all different tokens from the user input.
+    private static final Pattern regexPattern = Pattern.compile(
+        TokenFactory
+            .getRegexRecordList()
+            .stream()
+            .map(rr -> String.format("(?<%s>%s)", rr.getGroup(), rr.getPattern()))
+            .collect(Collectors.joining("|")),
+        Pattern.CASE_INSENSITIVE
     );
 
-    // Regex pattern used to group the String token (refers to `getTokensFromString` function).
-    private static final Pattern regexPattern;
+    // Matcher storer for user input against regex.
+    private static Matcher inputMacther;
 
-    // build the regex pattern statically.
-    static {
-        String pat = regexGroupMapping
-            .entrySet()
-            .stream()
-            .map(entry -> String.format(
-                "(?<%s>%s)",
-                entry.getKey(),
-                String.join("|", entry.getValue())
-            )).collect(Collectors.joining("|"));
+    // Stores the generate token list. Is reset whenever `Evaluator.getTokensFromString()` method
+    // is called.
+    private static LinkedList<TokenInterface> tokenList;
 
-        regexPattern = Pattern.compile(
-            pat,
-            Pattern.CASE_INSENSITIVE
-        );
-    }
+    // Reads a s `String` and returns the Tokens list from it. This function can raise an
+    // `UndefinedTokenException` (which is raise at `TokenFactory.newToken()` method, actually).
+    // This occurs when the provided `String` doesn't match to any recognized regex `Pattern`.
+    public static List<TokenInterface> getTokensFromString(String s)
+    throws UndefinedTokenException {
+        // init list and matcher for s string.
+        tokenList = new LinkedList<>();
+        inputMacther = regexPattern.matcher(s);
 
-    // Reads a s `String` and returns the Tokens from it.
-    public static List<String> getTokensFromString(String s) {
-        // TODO: add real token returning instead of single string.
-        LinkedList<String> ll = new LinkedList<>();
-        Matcher m = regexPattern.matcher(s);
+        // for all matched groups.
+        while (inputMacther.find())
+            tokenList.add(TokenFactory.newToken(inputMacther.group()));
 
-        // for each match
-        while (m.find())
-            ll.add(m.group());
-
-        // return it.
-        return ll;
+        // return token list.
+        return tokenList;
     }
 }
