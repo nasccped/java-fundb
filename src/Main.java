@@ -1,9 +1,17 @@
+package fundb;
+
 import java.util.HashMap;
 import java.util.List;
-import repl.Reader;
-import repl.Evaluator;
+import fundb.repl.Evaluator;
+import fundb.repl.Printer;
+import fundb.repl.Reader;
+import fundb.token.TokenInterface;
+import fundb.token.UndefinedTokenException;
 
-class Main {
+// NOTE: temp - this is used for debug view. remove it latter.
+import java.util.stream.Collectors;
+
+public class Main {
 
     // Used prompt when asking for user.
     private static final String PROMPT_INDICATOR = "> ";
@@ -13,6 +21,9 @@ class Main {
 
     // Variable used to check if the program should continue.
     private static boolean continueProgram = true;
+
+    // Tokens returned from repl.Evaluator after input parsing.
+    private static List<TokenInterface> tokens;
 
     public static void main(String[] args) {
         String boldExit = String.format("\u001b[1m%s\u001b[0m", "exit;");
@@ -43,11 +54,30 @@ class Main {
                 Reader.pushToBuffer(userResponse);
             }
 
-            // Convert input into list of tokens.
-            List<String> tokens = Evaluator.getTokensFromString(Reader.consume());
+            // WARN: getTokensFromString can raise a runtime exception. This isn't a good approach
+            //       but it allows an inner static that stores function pointer. This statement
+            //       should be enclosed with try-catch technique.
+            try {
+
+                tokens = Evaluator.getTokensFromString(Reader.consume());
+
+            } catch (UndefinedTokenException undefined) {
+                // if fails, delegate to Printer and continue.
+                Printer.reportResult(undefined);
+                continue;
+            }
+
+            // NOTE: temp - debug view. remove it latter.
+            IOHandler.println(String.join(
+                " | ",
+                tokens
+                    .stream()
+                    .map(tk -> tk.asDebugString())
+                    .collect(Collectors.toList())
+            ));
 
             // if exiting required.
-            if (tokens.get(0).equalsIgnoreCase("exit"))
+            if (tokens.get(0).getInnerValue().equalsIgnoreCase("exit"))
                 setContinueProgram(false);
         }
 
