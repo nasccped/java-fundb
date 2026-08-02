@@ -1,0 +1,81 @@
+package fundb.repl;
+
+import fundb.token.UndefinedTokenException;
+import fundb.IOHandler;
+
+// Class responsible for content printing (in a repl way).
+public class Printer {
+
+    // Class used for color unwrapping based on result status.
+    private static class Colors {
+
+        private static final String RED_COLOR = "\u001b[30;101m";
+        private static final String GREEN_COLOR = "\u001b[30;102m";
+        private static final String CYAN_COLOR = "\u001b[30;106m";
+        private static final String GRAY_COLOR = "\u001b[30;47m";
+        private static final String RESET = "\u001b[0m";
+
+        // Return the properly color escape based on the provided status.
+        protected static String getColorFromStatus(PrintableResultInterface.Status status) {
+            switch (status) {
+                case PrintableResultInterface.Status.OK:
+                    return GREEN_COLOR;
+
+                case PrintableResultInterface.Status.ERR:
+                    return RED_COLOR;
+
+                case PrintableResultInterface.Status.WARN:
+                    return CYAN_COLOR;
+
+                default:
+                    return GRAY_COLOR;
+            }
+        }
+
+        // Returns the color escape reset.
+        protected static String getResetColor() {
+            return RESET;
+        }
+    }
+
+    // Report the result to stdout.
+    public static void reportResult(PrintableResultInterface result) {
+        // store strings length (update left gap).
+        int previousGap, statusLength;
+
+        PrintableResultInterface.Status status;
+
+        // store string values.
+        String color, statusString, actionKind, description;
+
+        // set status
+        status = result.getStatus();
+
+        // set strings
+        color = Colors.getColorFromStatus(status);
+        statusString = status.toString();
+        actionKind = result.getActionKind();
+        description = result.getDescription();
+
+        // set integers
+        previousGap = IOHandler.getLeftGap();
+        statusLength = statusString.length();
+
+        // print top tag first.
+        IOHandler.println(String.format(
+            "%s %s %s on %s:",
+            color,
+            statusString,
+            Colors.getResetColor(),
+            actionKind
+        ));
+        // go next line with new spacing
+        IOHandler.setLeftGap(previousGap + 3 + statusLength);
+
+        // print description
+        IOHandler.println(description);
+
+        // reset gap.
+        IOHandler.setLeftGap(previousGap);
+    }
+}
