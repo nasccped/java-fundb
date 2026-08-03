@@ -16,7 +16,7 @@ public class GenericRuntimeException extends RuntimeException {
         Class<P> parentClass,
         String functionName
     ) {
-        new GenericRuntimeException(String.format(
+        return new GenericRuntimeException(String.format(
             "`%s` class extends `%s` class/intr. but the `%s` static function requires overriding",
             childClass.getName(),
             parentClass.getName(),
