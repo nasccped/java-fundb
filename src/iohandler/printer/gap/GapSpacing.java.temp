@@ -1,0 +1,25 @@
+package fundb.iohandler.print.gap;
+
+import fundb.exception.GenericRuntimeException;
+
+class GapSpacing {
+
+    // Means the left gap spacing.
+    private static int gapLength = 0;
+
+    protected static void setGapLength(int value) {
+        if (value < 0)
+            throw GenericRuntimeException.invalidArgumentValue(
+                "setGapLength",
+                "value",
+                GapSpacing.class,
+                "greater or equals `0`"
+            );
+
+        gapLength = value;
+    }
+
+    protected static int getGapLength() {
+        return gapLength;
+    }
+}

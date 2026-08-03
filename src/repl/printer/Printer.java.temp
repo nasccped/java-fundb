@@ -3,7 +3,7 @@ package fundb.repl;
 import fundb.token.UndefinedTokenException;
 import fundb.IOHandler;
 
-// Class responsible for content printing (in a repl way).
+// Class responsible for content printing (only repl correspondent stuff).
 public class Printer {
 
     // Class used for color unwrapping based on result status.
@@ -36,6 +36,11 @@ public class Printer {
         protected static String getResetColor() {
             return RESET;
         }
+    }
+
+    // Does the welcome message printing.
+    public static void printWelcome() {
+        IOHandler.println("Welcome to java-fundb, a database REPL made with love!");
     }
 
     // Report the result to stdout.

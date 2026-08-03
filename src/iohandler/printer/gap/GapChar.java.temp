@@ -1,0 +1,26 @@
+package fundb.iohandler.print.gap;
+
+// Means a single char that repr the gap spacing.
+class GapChar {
+
+    // Character representation for the gap spacing (`null` fallback to default).
+    private static Character gapCharRepr = null;
+
+    // Default character (used when `gapCharRepr` refers to `null`).
+    private static final char DEFAULT_GAP_CHAR_REPR = ' ';
+
+    // Returns the properly gap char data.
+    protected static char getChar() {
+        return gapCharRepr != null ? gapCharRepr : DEFAULT_GAP_CHAR_REPR;
+    }
+
+    // Set a new character as gap char repr.
+    protected static void setChar(char c) {
+        gapCharRepr = Character.valueOf(c);
+    }
+
+    // Unset the gap char repr character (fallback to default).
+    protected static void unsetChar() {
+        gapCharRepr = null;
+    }
+}

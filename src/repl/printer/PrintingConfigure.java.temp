@@ -1,0 +1,4 @@
+package fundb.repl.printer;
+
+class PrintingConfigure extends AbstractPrintConfigurer {
+}

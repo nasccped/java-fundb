@@ -1,0 +1,63 @@
+package fundb.iohandler.print;
+
+import fundb.iohandler.print.gap.Gap;
+
+// Dedicated class for content printing (should be used only by IOHandler class).
+public class Printer {
+
+    private GapManager gapMan;
+
+    public Printer() {
+        this.gapMan = new GapManager();
+    }
+
+    // Prints the `String.valueOf(obj)` method content to stdout (prefixed with gap spacing if
+    // necessary) + a newline at the end.
+    public void println(Object obj) {
+        System.out.println(String.format(
+            "%s%s",
+            gapMan.getGapSpacingString(),
+            String.valueOf(obj)
+        ));
+        gapMan.enableGapTrigger();
+    }
+
+    // Prints the `String.valueOf(obj)` method content to stdout (prefixed with gap spacing if
+    // necessary) WITHOUT newline at the end.
+    //
+    // It also disable the gap space printing for next print call (since we're still in the same
+    // line).
+    public void print(Object obj) {
+        System.out.print(String.format(
+            "%s%s",
+            Gap.getGapSpacingString(),
+            String.valueOf(obj)
+        ));
+        Gap.disableGapTrigger();
+    }
+
+    // Prints an only the gap spacing string (useful when bg color is set) + a newline at the end.
+    public void println() {
+        System.out.println(Gap.getGapSpacingString());
+        Gap.enableGapTrigger();
+    }
+
+    // Prints only the gap spacing string (if necessary) and turns of the the gap trigger (since
+    // we're still in the same line).
+    public void printGapOnly() {
+        System.out.print(Gap.getGapSpacingString());
+        Gap.disableGapTrigger();
+    }
+
+    public void enableGapTrigger() {
+        Gap.enableGapTrigger();
+    }
+
+    public void disableGapTrigger() {
+        Gap.disableGapTrigger();
+    }
+
+    public void setGapSpacing(int value) {
+        Gap.setSpacing(value);
+    }
+}

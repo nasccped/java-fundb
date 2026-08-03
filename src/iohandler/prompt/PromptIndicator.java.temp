@@ -1,0 +1,20 @@
+package fundb.iohandler.prompt;
+
+class PromptIndicator {
+
+    // Indicator used when prompting to user (`null` as default).
+    private static String promptIndicator = null;
+
+    // Indicator used when `promptIndicator` is `null`.
+    private static final String DEFAULT_PROMPT_INDICATOR = "<UNDEFINED-PROMPT>";
+
+    // Returns the properly prompt indicator value.
+    protected static String getIndicator() {
+        return promptIndicator != null ? promptIndicator : DEFAULT_PROMPT_INDICATOR;
+    }
+
+    // Set a new `String` value as `promptIndicator`.
+    protected static void setIndicator(String s) {
+        promptIndicator = s;
+    }
+}

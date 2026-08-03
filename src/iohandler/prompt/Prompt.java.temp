@@ -1,0 +1,21 @@
+package fundb.iohandler.prompt;
+
+import java.util.Scanner;
+
+public class Prompt {
+
+    private static final Scanner SC = new Scanner(System.in);
+
+    public static String promptWithIndicator() {
+        System.out.print(PromptIndicator.getIndicator());
+        return SC.nextLine();
+    }
+
+    public static String promptWithoutIndicator() {
+        return SC.nextLine();
+    }
+
+    public static void setPromptIndicator(String indicator) {
+        PromptIndicator.setIndicator(indicator);
+    }
+}

@@ -1,0 +1,11 @@
+package fundb.configurable;
+
+// Interface that allow different items to be 'configurable'.
+public interface ConfigurableInterface {
+
+    // Returns if the current item is already configured.
+    public boolean isConfigured();
+
+    // Runs the item configuration.
+    public void configureIt();
+}

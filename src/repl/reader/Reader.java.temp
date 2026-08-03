@@ -3,7 +3,7 @@ package fundb.repl;
 import java.util.Stack;
 
 // The stdin reading buffer impl.
-public class Reader {
+protected class Reader {
 
     // Expected character when an open block is initialized.
     private enum OpenCloseChar {
@@ -32,7 +32,7 @@ public class Reader {
 
     // Pushes the s `String` to the inner StringBuffer. Note that this function doesn't push the
     // entire `String`, but just the 'necessary' chars (non-whitespace).
-    public static void pushToBuffer(String s) {
+    protected static void pushToBuffer(String s) {
         // temp store the expected closing char.
         OpenCloseChar expect;
 

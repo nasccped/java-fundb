@@ -1,0 +1,3 @@
+package fundb.managers.result;
+
+public interface ExecutionResultInterface {}

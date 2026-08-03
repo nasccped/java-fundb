@@ -1,0 +1,42 @@
+package fundb.iohandler.print.gap;
+
+// Refers to the left gap on stdout print.
+public class Gap {
+
+    // Means if the gap should (or not) be added.
+    private static boolean gapTrigger = true;
+
+    // Value to be returned when `gapTrigger` is off.
+    private static final String GAP_VALUE_WHEN_TRIGGER_OF = "";
+
+    // Turn the `gapTrigger` on.
+    public static void enableGapTrigger() {
+        gapTrigger = true;
+    }
+
+    // Turn the `gapTrigger` off.
+    public static void disableGapTrigger() {
+        gapTrigger = false;
+    }
+
+    // Returns the left gap value as `String`.
+    public static String getGapSpacingString() {
+        return gapTrigger
+            ? String.valueOf(GapChar.getChar()).repeat(GapSpacing.getGapLength())
+            : GAP_VALUE_WHEN_TRIGGER_OF;
+    }
+
+    // Set a new `char` value as gap.
+    public static void setChar(char c) {
+        GapChar.setChar(c);
+    }
+
+    // Unset a new `char` value gap (fallback to default).
+    public static void unsetChar() {
+        GapChar.unsetChar();
+    }
+
+    public static void setSpacing(int value) {
+        GapSpacing.setGapLength(value);
+    }
+}

@@ -1,0 +1,61 @@
+package fundb.iohandler;
+
+import fundb.iohandler.print.Print;
+import fundb.iohandler.prompt.Prompt;
+
+// Handles the terminal input/output data.
+public class IOHandler {
+
+    // A dedicated object just for content printing. Can be configured for left gap printing and
+    // others.
+    private Printer printer;
+
+    // A dedicated object for content prompt.
+    private Prompt prompt;
+
+    public IOHandler() {
+        this.printer = new Printer();
+        this.prompt = new Prompt();
+    }
+
+    // Prints the left gap spacing (if needed) + obj content to the stdout with a new line at the
+    // end.
+    public void println(Object obj) {
+        printer.println(obj);
+    }
+
+    // Prints an only the gap spacing string (useful when bg color is set) + a newline at the end.
+    public void println() {
+        printer.println();
+    }
+
+    // Prints the obj content to stdout (prefixed with gap spacing if necessary) WITHOUT newline at
+    // the end.
+    //
+    // It also disable the gap space printing for next print call (since we're still in the same
+    // line).
+    public void print(Object obj) {
+        printer.print(obj);
+    }
+
+    // Prompts to the user with the prompt indicator.
+    public String promptWithIndicator() {
+        String result;
+        Print.printGapOnly();
+        result = Prompt.promptWithIndicator();
+        Print.enableGapTrigger();
+        return result;
+    }
+
+    public String promptWithoutIndicator() {
+        String result;
+        Print.printGapOnly();
+        result = Prompt.promptWithoutIndicator();
+        Print.enableGapTrigger();
+        return result;
+    }
+
+    public void setPrintGapSpacing(int value) {
+        Print.setGapSpacing(value);
+    }
+}

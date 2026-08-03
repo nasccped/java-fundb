@@ -1,0 +1,34 @@
+package fundb.iohandler.print;
+
+// Abstract class that should be extended by any class that can deals with printing stuff.
+public abstract class AbstractPrintConfigurer {
+
+    // If the configuration was already done.
+    private static boolean isPrintConfigured = false;
+
+    // Only runs the configuration if needed.
+    static void configurePrintIfNeeded() {
+
+        // if configuring isn't necessary.
+        if (isConfigured)
+            return;
+
+        // else, do configuring.
+        configurePrint();
+        setIsConfigured(true);
+    }
+
+    // Function that actually configures the printing stuff.
+    static void configurePrint() {
+        throw GenericRuntimeException.staticFunctionNotImplemented(
+            getClass(),
+            AbstractPrintConfigurer.class,
+            "configurePrint"
+        );
+    }
+
+    // Set a new value to the `isPrintConfigured` var.
+    static void setIsPrintConfigured(boolean value) {
+        isConfigured = value;
+    }
+}

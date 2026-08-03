@@ -1,0 +1,53 @@
+package fundb.repl;
+
+import fundb.exception.GenericRuntimeException;
+import fundb.managers.result.ExecutionResultInterface;
+import fundb.repl.evaluator.EvaluationResultInterface;
+import fundb.repl.printer.Printer;
+
+// Class responsible for repl (read, evaluate, print and loop) stuff.
+//
+// This class exposes all the necessary methods for dealing with input/output work, but the
+// `iohandler` package holds the std(io) implementations.
+public class REPLer implements ConfigurableInterface {
+
+    private ConfigurableInterface stdioConfigurationReference;
+    private Printer printer;
+
+    public REPLer(IOHandler iohand) {
+        this.stdioConfigurationReference = null;
+        this.printer = new Printer(iohand);
+    }
+
+    // Prints the welcome message at program's begin.
+    public static void printWelcome() {
+        configureIfNeeded();
+        Printer.printWelcome();
+    }
+
+    // Returns if the program is still running.
+    public static boolean isLooping() {
+        throw GenericRuntimeException.missingFunctionImplementation(REPLer.class, "isLooping");
+    }
+
+    // Reads the user input until input termination.
+    public static String read() {
+        configureIfNeeded();
+        throw GenericRuntimeException.missingFunctionImplementation(REPLer.class, "read");
+    }
+
+    // Evaluates the user input (`String`) to a common evaluation result (interface).
+    public static EvaluationResultInterface evaluate(String input) {
+        throw GenericRuntimeException.missingFunctionImplementation(REPLer.class, "evaluate");
+    }
+
+    // Reports final result to the user through stdout.
+    public static void reportResult(ExecutionResultInterface input) {
+        configureIfNeeded();
+        throw GenericRuntimeException.missingFunctionImplementation(REPLer.class, "reportResult");
+    }
+
+    private void configureIfNeeded() {
+
+    }
+}
