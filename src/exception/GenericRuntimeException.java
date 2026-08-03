@@ -23,4 +23,16 @@ public class GenericRuntimeException extends RuntimeException {
             functionName
         ));
     }
+
+    // When the class's function was not implemented (similar to `panic("todo: ...")`).
+    public static <C> GenericRuntimeException missingFunctionImplementation(
+        Class<C> classTarget,
+        String functionName
+    ) {
+        return new GenericRuntimeException(String.format(
+            "`%s` function at `%s` class wasn't implemented yet",
+            functionName,
+            classTarget.getName()
+        ));
+    }
 }
