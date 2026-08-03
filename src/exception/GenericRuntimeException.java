@@ -35,4 +35,20 @@ public class GenericRuntimeException extends RuntimeException {
             classTarget.getName()
         ));
     }
+
+    // When a function receives an invalid argument value (similar to 'IllegalArgumentException').
+    public static <C> GenericRuntimeException invalidArgumentValue(
+        String functionName,
+        String paramName,
+        Class<C> atClass,
+        String expecting
+    ) {
+        return new GenericRuntimeException(String.format(
+            "`%s` param at `%s::%s` function was expected to be %s",
+            paramName,
+            atClass.getName(),
+            functionName,
+            expecting
+        ));
+    }
 }
