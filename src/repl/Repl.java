@@ -1,6 +1,7 @@
 package fundb.repl;
 
 import fundb.repl.printer.Printer;
+import fundb.repl.reader.Reader;
 
 // Class responsible for repl (read, evaluate, print and loop) stuff.
 public class Repl {
@@ -11,14 +12,23 @@ public class Repl {
     // Does the printing to sysout.
     private Printer printer;
 
+    // Does the reading from sysin.
+    private Reader reader;
+
     public Repl() {
         this.looping = true;
         this.printer = new Printer();
+        this.reader = new Reader();
     }
 
     // Prints a welcome message to sysout.
     public void printWelcome() {
         printer.printWelcome();
+    }
+
+    // Reads the user input (sysin).
+    public String read() {
+        return reader.read();
     }
 
     // Returns if the program is currently running.

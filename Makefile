@@ -1,7 +1,7 @@
 CC=javac
 RC=java
 SRC=./src
-PKGS=$(SRC) $(SRC)/repl $(SRC)/repl/printer
+PKGS=$(SRC) $(SRC)/repl $(SRC)/repl/printer $(SRC)/repl/reader
 FILES=$(foreach pkg,$(PKGS),$(wildcard $(pkg)/*.java))
 DEST=./target
 MAIN=fundb/Main
