@@ -7,18 +7,22 @@ public class Main {
     // Dedicated object for read, evaluate, print and loop stuff.
     private static Repl repl = new Repl();
 
-    public static void main(String[] args) {
-        // Prints the welcome message to the user through sysout.
-        repl.printWelcome();
+    // Stores the user input when reading with `repl` reader.
+    private static String userInput;
 
-        int counter = 1;
+    public static void main(String[] args) {
+
+        repl.printWelcome();
+        System.out.println("Consider using 'exit'...");
 
         while (repl.isLooping()) {
-            counter++;
-            if (counter >= 10)
+
+            userInput = repl.read();
+
+            if (userInput.equalsIgnoreCase("exit"))
                 repl.terminate();
         }
 
-        System.out.println("Current counter value: " + counter);
+        System.out.println("Exiting program...");
     }
 }
