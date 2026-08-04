@@ -13,13 +13,12 @@ public class Main {
     public static void main(String[] args) {
 
         repl.printWelcome();
-        System.out.println("Consider using 'exit'...");
 
         while (repl.isLooping()) {
 
             userInput = repl.read();
 
-            if (userInput.equalsIgnoreCase("exit"))
+            if (userInput.equalsIgnoreCase("exit;"))
                 repl.terminate();
         }
 
