@@ -19,9 +19,4 @@ public class Printer {
     public void print(Object obj) {
         System.out.print(obj);
     }
-
-    // Prints a welcome message to sysout.
-    public void printWelcome() {
-        println("This is java-fundb and you're very welcome!");
-    }
 }

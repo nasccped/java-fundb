@@ -23,7 +23,8 @@ public class Repl {
 
     // Prints a welcome message to sysout.
     public void printWelcome() {
-        printer.printWelcome();
+        printer.println("This is java-fundb, a repl database made with love!");
+        printer.println("Consider using 'exit;' or 'help;' at any time.");
     }
 
     // Reads the user input (sysin).
