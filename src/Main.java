@@ -11,17 +11,12 @@ public class Main {
     private static String userInput;
 
     public static void main(String[] args) {
-
         repl.printWelcome();
 
         while (repl.isLooping()) {
-
+            // reads and execute.
             userInput = repl.read();
-
-            if (userInput.equalsIgnoreCase("exit;"))
-                repl.terminate();
+            repl.execute(userInput);
         }
-
-        System.out.println("Exiting program...");
     }
 }

@@ -1,5 +1,6 @@
 package fundb.repl;
 
+import fundb.database.DatabaseManager;
 import fundb.repl.printer.Printer;
 import fundb.repl.reader.Reader;
 
@@ -15,10 +16,14 @@ public class Repl {
     // Does the reading from sysin.
     private Reader reader;
 
+    // Database manager for query execution.
+    private DatabaseManager man;
+
     public Repl() {
         this.looping = true;
         this.printer = new Printer();
         this.reader = new Reader();
+        this.man = new DatabaseManager(this);
     }
 
     // Prints a welcome message to sysout.
@@ -30,6 +35,13 @@ public class Repl {
     // Reads the user input (sysin).
     public String read() {
         return reader.read();
+    }
+
+    public void execute(String s) {
+        if (man.execute(s))
+            printer.println("Execution successfuly done!");
+        else
+            printer.println(String.format("Not recognized as execution comand: %s", s));
     }
 
     // Returns if the program is currently running.
