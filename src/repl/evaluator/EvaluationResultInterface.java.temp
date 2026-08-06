@@ -1,5 +1,0 @@
-package fundb.repl.evaluator;
-
-public interface EvaluationResultInterface {
-
-}
