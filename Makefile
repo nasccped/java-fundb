@@ -9,6 +9,7 @@ PKGS=$(SRC) \
 	 		$(SRC)/repl/evaluator \
 	 		$(SRC)/repl/printer \
 	 		$(SRC)/repl/reader \
+	 		$(SRC)/repl/reporter \
 	 	$(SRC)/tokens \
 	 		$(SRC)/tokens/definition \
 	 		$(SRC)/tokens/factory \
