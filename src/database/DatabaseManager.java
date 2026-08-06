@@ -1,30 +1,26 @@
 package fundb.database;
 
-import fundb.exceptions.NotImplementedYetException;
+import fundb.tokens.TokenSequence;
 import fundb.repl.Repl;
 
 // Manage all databases, executable queries and so on...
 public class DatabaseManager {
     
-    // Running environment (when repl.terminate is required).
-    private Repl env;
+    // Repl reference (if exit command is called).
+    private Repl replEnv;
 
-    public DatabaseManager(Repl env) {
-        this.env = env;
+    public DatabaseManager(Repl repl) {
+        this.replEnv = repl;
     }
 
-    // Executes the s `String` command and returns if the execution was succeeded.
-    public boolean execute(String s) {
-        // if exit called
-        if (s.toLowerCase().equalsIgnoreCase("exit;")) {
-            env.terminate();
-            return true;
-
-          // if help called
-        } else if (s.toLowerCase().equalsIgnoreCase("help;"))
-            throw new NotImplementedYetException("DatabaseManager help cmd execution");
-
-        // else.
-        return false;
+    // Takes a `TokenSequence` and converts it to an `AbstractExecutionResult`. The execution can
+    // fail and raise any `AbstractDatabaseExecutionException` extender.
+    public AbstractExecutorResult execute(TokenSequence ts)
+    throws AbstractDatabaseExecutorException {
+        throw new UnsupportedOperationException(String.format(
+            "`%s::%s` operation wasn't implemented yet",
+            getClass().getSimpleName(),
+            "execute"
+        ));
     }
 }
