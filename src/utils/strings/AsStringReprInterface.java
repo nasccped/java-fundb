@@ -1,4 +1,4 @@
-package fundb.utils;
+package fundb.utils.strings;
 
 // An interface that allow object representation (works similar to `toString` method, but
 // it provide guarantees at compile-time).
