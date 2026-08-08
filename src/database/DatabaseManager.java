@@ -2,6 +2,8 @@ package fundb.database;
 
 import fundb.tokens.TokenSequence;
 import fundb.repl.Repl;
+import fundb.utils.exceptions.execution.AbstractDatabaseExecutionException;
+import fundb.utils.result.AbstractDatabaseExecutionResult;
 
 // Manage all databases, executable queries and so on...
 public class DatabaseManager {
@@ -15,8 +17,8 @@ public class DatabaseManager {
 
     // Takes a `TokenSequence` and converts it to an `AbstractExecutionResult`. The execution can
     // fail and raise any `AbstractDatabaseExecutionException` extender.
-    public AbstractExecutorResult execute(TokenSequence ts)
-    throws AbstractDatabaseExecutorException {
+    public AbstractDatabaseExecutionResult execute(TokenSequence ts)
+    throws AbstractDatabaseExecutionException {
         throw new UnsupportedOperationException(String.format(
             "`%s::%s` operation wasn't implemented yet",
             getClass().getSimpleName(),
