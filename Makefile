@@ -14,7 +14,13 @@ PKGS=$(SRC) \
 	 		$(SRC)/tokens/definition \
 	 		$(SRC)/tokens/factory \
 	 		$(SRC)/tokens/variants \
-	 		$(SRC)/tokens/kind
+	 		$(SRC)/tokens/kind \
+	 	$(SRC)/utils \
+	 		$(SRC)/utils/exceptions/evaluation/replparse \
+	 		$(SRC)/utils/exceptions/execution \
+	 		$(SRC)/utils/result \
+	 		$(SRC)/utils/reportable \
+	 		$(SRC)/utils/strings
 FILES=$(foreach pkg,$(PKGS),$(wildcard $(pkg)/*.java))
 DEST=./target
 MAIN=fundb/Main
