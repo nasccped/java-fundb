@@ -1,9 +1,9 @@
 package fundb;
 
-import fundb.repl.AbstractExecutionException;
-import fundb.repl.evaluator.EvaluationException;
+import fundb.utils.exceptions.evaluation.replparse.AbstractEvaluationException;
+import fundb.utils.exceptions.execution.AbstractExecutionException;
 import fundb.repl.Repl;
-import fundb.repl.ReportableResultInterface;
+import fundb.utils.result.AbstractExecutionResult;
 import fundb.tokens.TokenSequence;
 
 public class Main {
@@ -18,7 +18,7 @@ public class Main {
     private static TokenSequence evaluation;
 
     // Result obtained after database manager execution.
-    private static ReportableResultInterface exeResult;
+    private static AbstractExecutionResult exeResult;
 
     public static void main(String[] args) {
         repl.printWelcome();
@@ -32,7 +32,7 @@ public class Main {
                 evaluation = repl.evaluate(userInput);
                 exeResult = repl.execute(evaluation);
 
-            } catch (AbstractExecutionException | EvaluationException e) {
+            } catch (AbstractExecutionException | AbstractEvaluationException e) {
                 // if fail (safe since all exceptions should be reportable)
                 repl.reportResult(e);
                 continue;
