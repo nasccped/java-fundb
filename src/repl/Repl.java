@@ -1,11 +1,15 @@
 package fundb.repl;
 
 import fundb.database.DatabaseManager;
+import fundb.repl.evaluator.Evaluator;
 import fundb.repl.printer.Printer;
 import fundb.repl.reader.Reader;
-import fundb.repl.evaluator.Evaluator;
-import fundb.repl.evaluator.EvaluationException;
+import fundb.repl.reporter.Reporter;
+import fundb.utils.reportable.MayReportInterface;
 import fundb.tokens.TokenSequence;
+import fundb.utils.exceptions.evaluation.replparse.AbstractEvaluationException;
+import fundb.utils.exceptions.execution.AbstractExecutionException;
+import fundb.utils.result.AbstractExecutionResult;
 
 // Class responsible for repl (read, evaluate, print and loop) stuff.
 public class Repl {
@@ -25,12 +29,19 @@ public class Repl {
     // User input evaluator dedicated object.
     private Evaluator evaluator;
 
+    // sysout dedicated reporter.
+    private Reporter reporter;
+
     public Repl() {
+        // init printer (used accross other objects).
+        Printer p = new Printer();
+
         this.looping = true;
-        this.printer = new Printer();
+        this.printer = p;
         this.reader = new Reader();
         this.man = new DatabaseManager(this);
         this.evaluator = new Evaluator();
+        this.reporter = new Reporter(p);
     }
 
     // Prints a welcome message to sysout.
@@ -44,20 +55,20 @@ public class Repl {
         return reader.read();
     }
 
-    // Tries to evaluate a given `String` input. Throws `EvaluationException` on fails.
-    public TokenSequence evaluate(String input) throws EvaluationException {
+    // Tries to evaluate a given `String` input. Throws `AbstractEvaluationException` on fails.
+    public TokenSequence evaluate(String input) throws AbstractEvaluationException {
         return evaluator.evaluate(input);
     }
 
     // Passes the token sequence to database manager and returns it's result as an interface (or
     // throws `AbstractDatabaseExecutionException` if fails).
-    public ReportableResultInterface execute(TokenSequence ts) throws AbstractExecutionException {
+    public AbstractExecutionResult execute(TokenSequence ts) throws AbstractExecutionException {
         return man.execute(ts);
     }
 
     // Reports the final result to the user throug sysout.
-    public <R extends ReportableResultInterface> void reportResult(R result) {
-        throw new UnsupportedOperationException("TODO: implemente reportResult function.");
+    public <R extends MayReportInterface> void reportResult(R result) {
+        reporter.reportResult(result);
     }
 
     // Returns if the program is currently running.
