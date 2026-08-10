@@ -38,7 +38,7 @@ public class Repl {
 
         this.looping = true;
         this.printer = p;
-        this.reader = new Reader();
+        this.reader = new Reader(p);
         this.man = new DatabaseManager(this);
         this.evaluator = new Evaluator();
         this.reporter = new Reporter(p);
