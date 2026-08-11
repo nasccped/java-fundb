@@ -1,6 +1,10 @@
 package fundb.utils.reportable;
 
 import fundb.utils.strings.AsStringReprInterface;
+import fundb.utils.strings.colored.ColorCode;
+import fundb.utils.strings.colored.ColoredString;
+import fundb.utils.strings.colored.StyleCode;
+import java.util.HashMap;
 
 // Refers to the kind of report being done (mainly used to print the result tag, like:
 // "WARN -> operation done but...").
@@ -17,6 +21,15 @@ public enum ReportKind implements AsStringReprInterface {
 
     // Anonymous report (not important).
     ANON;
+
+    // Map each kind to a background `ColorCode`.
+    private static final HashMap<ReportKind, ColorCode> KIND_TO_COLOR_MAP = new HashMap<>();
+
+    static {
+        KIND_TO_COLOR_MAP.put(ReportKind.DONE, ColorCode.BLUE);
+        KIND_TO_COLOR_MAP.put(ReportKind.WARN, ColorCode.YELLOW);
+        KIND_TO_COLOR_MAP.put(ReportKind.FAIL, ColorCode.RED);
+    }
 
     // Inner value (as `String`).
     private String kindAsString;
@@ -42,7 +55,12 @@ public enum ReportKind implements AsStringReprInterface {
             ));
 
         initKindAsStringIfNecessary();
-        return kindAsString;
+
+        return new ColoredString(kindAsString)
+            .withStyle(StyleCode.BOLD)
+            .withNewFgColor(ColorCode.BRIGHT_WHITE)
+            .withNewBgColor(KIND_TO_COLOR_MAP.getOrDefault(this, ColorCode.BRIGHT_BLACK))
+            .asStringRepr();
     }
 
     // Only sets the `kindAsString` if necessary (null or empty).
