@@ -1,6 +1,9 @@
 package fundb.repl.reader;
 
 import fundb.repl.printer.Printer;
+import fundb.utils.strings.colored.ColorCode;
+import fundb.utils.strings.colored.ColoredString;
+import fundb.utils.strings.colored.StyleCode;
 import java.util.Scanner;
 
 // Reads the user input from sysin.
@@ -18,7 +21,10 @@ public class Reader {
     public Reader(Printer printer) {
         this.SC = new Scanner(System.in);
         this.PRINTER = printer;
-        this.PROMPT_INDICATOR = "\u001b[95mfundb $ \u001b[0m";
+        this.PROMPT_INDICATOR = new ColoredString("fundb $ ")
+            .withStyle(StyleCode.BOLD)
+            .withNewFgColor(ColorCode.BRIGHT_GREEN)
+            .asStringRepr();
     }
 
     // Reads the user input from sysin.
