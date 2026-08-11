@@ -6,6 +6,9 @@ import fundb.utils.reportable.Report;
 import fundb.utils.reportable.ReportKind;
 import fundb.utils.reportable.TitleInterface;
 import fundb.utils.strings.AsStringReprInterface;
+import fundb.utils.strings.colored.ColorCode;
+import fundb.utils.strings.colored.ColoredString;
+import fundb.utils.strings.colored.StyleCode;
 import java.util.Optional;
 
 // When token parsing doesn't cover the entire string (means that some string slice isn't
@@ -13,6 +16,9 @@ import java.util.Optional;
 public class UncoveredSubstringException
 extends AbstractEvaluationException
 implements TitleInterface, DetailInterface {
+
+    // Default hint when this exception is thrown.
+    private static final String DEFAULT_HINT = "(not recognized in regex pattern)";
 
     // Carries the title of the current substring.
     private final String substring;
@@ -48,19 +54,32 @@ implements TitleInterface, DetailInterface {
 
     // Turn this object into a valid detail.
     public String getDetailString() {
-        int howMany = uncoveredSubstringsCount - 1;
-        boolean plural = howMany > 1;
+        ColoredString colorNum = new ColoredString(String.valueOf(uncoveredSubstringsCount - 1))
+            .withStyle(StyleCode.BOLD)
+            .withNewFgColor(ColorCode.BRIGHT_RED);
 
-        return String.format("Other %d substring%s not covered!", howMany, plural ? "s" : "");
+        return String.format(
+            "Other %s substring%s not covered!",
+            colorNum.asStringRepr(),
+            uncoveredSubstringsCount > 2 ? "s" : ""
+        );
     }
 
     // Turn it into an acceptable title.
     public String getTitleString() {
+        ColoredString coloredSubstring = new ColoredString(String.format("'%s'", substring))
+            .withStyle(StyleCode.BOLD)
+            .withNewFgColor(ColorCode.BRIGHT_RED);
+
+        ColoredString coloredHint = new ColoredString(DEFAULT_HINT)
+            .withNewFgColor(ColorCode.BRIGHT_BLACK);
+
         return String.format(
-            "Uncovered substring on query: %s [%d..%d] (not recognized in regex pattern)",
-            substring,
+            "Uncovered substring on query: %s [%d..%d] %s",
+            coloredSubstring.asStringRepr(),
             beginIndex,
-            endIndex
+            endIndex,
+            coloredHint.asStringRepr()
         );
     }
 }
