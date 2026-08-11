@@ -27,7 +27,7 @@ DEST=./target
 MAIN=fundb/Main
 
 build: $(FILES)
-	$(CC) $^ -d $(DEST)
+	$(CC) $^ -d $(DEST) -Xlint:unchecked
 
 run: $(DEST)/$(MAIN).class
 	$(RC) --class-path $(DEST) $(MAIN)
