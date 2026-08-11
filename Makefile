@@ -20,7 +20,8 @@ PKGS=$(SRC) \
 	 		$(SRC)/utils/exceptions/execution \
 	 		$(SRC)/utils/result \
 	 		$(SRC)/utils/reportable \
-	 		$(SRC)/utils/strings
+	 		$(SRC)/utils/strings \
+	 			$(SRC)/utils/strings/colored
 FILES=$(foreach pkg,$(PKGS),$(wildcard $(pkg)/*.java))
 DEST=./target
 MAIN=fundb/Main
