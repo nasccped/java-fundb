@@ -13,7 +13,7 @@ public class TokenSequence {
     private Deque<AbstractToken> tokens;
 
     public TokenSequence(Collection<AbstractToken> c) {
-        this.tokens = new ArrayDeque<>(tokens);
+        this.tokens = new ArrayDeque<>(c);
     }
 
     // Consumes the first token on the sequence (returns `Optional` of `null` if empty).
